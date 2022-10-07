@@ -15,10 +15,11 @@ import java.util.concurrent.Future;
 
 public class RunnerClassInterruptThread {
   public static void main(String[] args) throws InterruptedException {
-    ExecutorService executorService = Executors.newFixedThreadPool(10);
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
     List<Future> futureList = new ArrayList<>();
 
-    executorService.submit(new CallableImpl());
+    
+    executorService.shutdown();
 
   }
 
@@ -30,5 +31,12 @@ class CallableImpl implements Callable<String> {
   @Override
   public String call() throws Exception {
     return "Callable element";
+  }
+}
+
+class MyThread extends Thread {
+  @Override
+  public void run() {
+    System.out.println(this.getId() + " ---- threadId");
   }
 }
